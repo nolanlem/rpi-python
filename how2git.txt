@@ -1,0 +1,9 @@
+(may have to git init. )
+1. git clone https://github.com/nolanlem/mydir // clone the repository 
+2. mv myfile.txt mydir // move the file you want into the cloned repository 
+3. git add .     // adds files in the local repository and stages them for commit
+4. git commit -m "Nth commit"  // commits the changes and prepares them to be 
+				// pushed to a remote repository 
+				// to remove the commit and modify the file: 'git reset --soft HEAD-1' and commit and add the file again 
+5. git push origin master 	// pushes the changes in the local repository up to the 
+				// remote repository you specified as the origin 
