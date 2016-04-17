@@ -7,3 +7,7 @@
 				// to remove the commit and modify the file: 'git reset --soft HEAD-1' and commit and add the file again 
 5. git push origin master 	// pushes the changes in the local repository up to the 
 				// remote repository you specified as the origin 
+
+
+// from local machine
+// git push -f origin master
