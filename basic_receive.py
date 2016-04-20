@@ -12,8 +12,17 @@ or run pydoc pyOSC.py. you can also get the docs by opening a python shell and d
 
 import OSC
 import time, threading
+import thread
+import RPi.GPIO as GPIO
 
+# my pins
+mypin = []
+mypin.append(21); # gpio pin 21 
+mypin.append(20); # gpio pin 20
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(mypin[0],GPIO.OUT) 
+GPIO.setup(mypin[1], GPIO.OUT)
 
 # tupple with ip, port. i dont use the () but maybe you want -> send_address = ('127.0.0.1', 9000)
 receive_address = '127.0.0.1', 8888
@@ -35,14 +44,22 @@ s.addDefaultHandlers()
 
 # define a message-handler function for the server to call.
 def printing_handler(addr, tags, stuff, source):
-    print "---"
-    print "received new osc msg from %s" % OSC.getUrlStr(source)
-    print "with addr : %s" % addr
-    print "typetags %s" % tags
-    print "data %s" % stuff
-    for num in stuff:
-        print num       
-    print "---"
+   # print "---"
+   # print "received new osc msg from %s" % OSC.getUrlStr(source)
+   # print "with addr : %s" % addr
+   # print "typetags %s" % tags
+   # print "data %s" % stuff
+    for x,num in enumerate(stuff):
+        if num == 0.0: 
+		thread.start_new_thread( toggleLED, ("thread-"+str(x), 0.1, mypin[x]) )			       
+		print "thread-"+str(x) + ": bang"   
+# print "---"
+
+def toggleLED(threadName, delay, mypin):
+	GPIO.output(mypin, True)
+	time.sleep(delay) 
+	GPIO.output(mypin, False)
+
 
 s.addMsgHandler("/msgs", printing_handler) # adding our function
 
