@@ -1,0 +1,2 @@
+// starting jack server usin qjackctl (GUI controller for Jack audio kit) 
+jackd -d alsa
